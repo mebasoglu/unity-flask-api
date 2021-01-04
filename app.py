@@ -74,7 +74,7 @@ class User:
             self.loadUserFromFile()
 
     def getFileName(self):
-        return str(self.user_id) + ".json"
+        return "data/" + str(self.user_id) + ".json"
 
     def loadUserFromFile(self):
         self.levels.clear()
@@ -159,11 +159,11 @@ def save():
     )
     print("\n\nKEY ADDED.\n", my_user.getUser(), "\n\n")
 
-    asd = my_user.getUser()
+    current_user = my_user.getUser()
     my_user.writeUserToFile()
     
     del my_user
-    return jsonify(asd), 201
+    return jsonify(current_user), 201
 
 
 
