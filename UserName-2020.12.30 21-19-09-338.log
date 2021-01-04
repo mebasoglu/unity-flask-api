@@ -1,0 +1,15 @@
+URL=
+MainMenu.Start()
+MainMenu.OnGUI Level:1
+2020.12.30 21-19-23-431;O;3,283191;redc2(Clone);False
+2020.12.30 21-19-31-103;E;3,095474;redc1(Clone);True
+URL=
+MainMenu.Start()
+MainMenu.OnGUI Level:2
+2020.12.30 21-19-43-008;O;1,869658;cmp(Clone);True
+URL=
+MainMenu.Start()
+Windows Quit Button pressed.
+MainMenu.OnGUI : UnityEditor.EditorApplication.isPlaying = false;
+
+timestamp ; press_key ; press_time ; box ; bool
