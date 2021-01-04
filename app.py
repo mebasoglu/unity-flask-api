@@ -32,11 +32,11 @@ class Key:
 class Level:
     # (int) level_no = 1
     # (list) keys = []
-    keys = []
 
     def __init__(self, level_no,):
         self.level_no = level_no
-        self.keys.clear()
+        self.keys = []
+        #self.keys.clear()
 
     def getLevel(self):
         level_to_dict = {
@@ -47,25 +47,37 @@ class Level:
             level_to_dict["keys"].append(key.getKey())
         return level_to_dict
     
+    def checkKeyExists(self,key):
+        # True -> Level has that key.
+        # False -> Level does'nt have it.
+        for existingKey in self.keys:
+            if existingKey.timestamp == key.timestamp:
+                return True
+
     def addKeyToLevel(self, key):
-        self.keys.append(key)
+        # Check existing keys in case of added before
+        if not self.checkKeyExists(key):
+            self.keys.append(key)
+
+    def __repr__(self):
+        return str(self.getLevel())
 
 
 class User:
     # (int) user_id = 999
     # (list) levels = [ {level: 1}, {level: 2} ]
-    user_id = 0
-    levels = []
     def __init__(self, user_id):
         self.user_id = int(user_id)
+        self.levels = []
         if path.exists(self.getFileName()):
-            self.levels.clear()
+            #self.levels.clear()
             self.loadUserFromFile()
 
     def getFileName(self):
         return str(self.user_id) + ".json"
 
     def loadUserFromFile(self):
+        self.levels.clear()
         with open(self.getFileName(), "r") as f:
             loadedDict = json.load(f)
         for levelDict in loadedDict["levels"]:
@@ -85,6 +97,7 @@ class User:
     def writeUserToFile(self):
         with open(self.getFileName(), "w") as f:
             json.dump(self.getUser(), f)
+        self.levels.clear()
 
     def checkLevelExists(self, level_no):
         for level in self.levels:
@@ -97,9 +110,14 @@ class User:
         if level_index == -1:
             # No level, then create it
             new_level = Level(level_no)
+            print("\n\nself.levels:\n", self.levels)
+            print("\n\nnew_level:\n", new_level)
             self.levels.append(new_level)
             level_index = self.checkLevelExists(level_no)
-        print("LEVEL INDEX:", level_index)
+        print("\n\nself.levels:\n", self.levels)
+        print("\n\nself.levels[level_index]:\n", self.levels[level_index].getLevel())
+        print("\n\nkey:\n", key.getKey())
+        print("\n\ngetUser:\n", self.getUser())
         self.levels[level_index].addKeyToLevel(key)
 
     def getUser(self):
@@ -131,18 +149,21 @@ def save():
         request.args.get("boolStatus")
     )
 
+    print("\n\nINCOMING KEY:\n", incoming_key.getKey())
+
     my_user = User(request.args.get("user_id"))
-    print("--------", len(my_user.levels))
-    for i in my_user.levels:
-        print("List item:")
-        print(i.getLevel())
+    print("\n\nUSER CREATED.\n", my_user.getUser())
     my_user.addNewKey(
         request.args.get("level"),
         incoming_key
     )
+    print("\n\nKEY ADDED.\n", my_user.getUser(), "\n\n")
+
+    asd = my_user.getUser()
     my_user.writeUserToFile()
     
-    return {"status": "success"}, 201
+    del my_user
+    return jsonify(asd), 201
 
 
 
