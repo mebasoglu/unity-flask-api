@@ -110,14 +110,14 @@ class User:
         if level_index == -1:
             # No level, then create it
             new_level = Level(level_no)
-            print("\n\nself.levels:\n", self.levels)
-            print("\n\nnew_level:\n", new_level)
+            #print("\n\nself.levels:\n", self.levels)
+            #print("\n\nnew_level:\n", new_level)
             self.levels.append(new_level)
             level_index = self.checkLevelExists(level_no)
-        print("\n\nself.levels:\n", self.levels)
-        print("\n\nself.levels[level_index]:\n", self.levels[level_index].getLevel())
-        print("\n\nkey:\n", key.getKey())
-        print("\n\ngetUser:\n", self.getUser())
+        #print("\n\nself.levels:\n", self.levels)
+        #print("\n\nself.levels[level_index]:\n", self.levels[level_index].getLevel())
+        #print("\n\nkey:\n", key.getKey())
+        #print("\n\ngetUser:\n", self.getUser())
         self.levels[level_index].addKeyToLevel(key)
 
     def getUser(self):
@@ -149,15 +149,15 @@ def save():
         request.args.get("boolStatus")
     )
 
-    print("\n\nINCOMING KEY:\n", incoming_key.getKey())
+    #print("\n\nINCOMING KEY:\n", incoming_key.getKey())
 
     my_user = User(request.args.get("user_id"))
-    print("\n\nUSER CREATED.\n", my_user.getUser())
+    #print("\n\nUSER CREATED.\n", my_user.getUser())
     my_user.addNewKey(
         request.args.get("level"),
         incoming_key
     )
-    print("\n\nKEY ADDED.\n", my_user.getUser(), "\n\n")
+    #print("\n\nKEY ADDED.\n", my_user.getUser(), "\n\n")
 
     current_user = my_user.getUser()
     my_user.writeUserToFile()
