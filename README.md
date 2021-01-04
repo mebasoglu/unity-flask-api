@@ -10,12 +10,12 @@ python3 app.py
 
 | Key  |  |
 | ------------- | ------------- |
-| user_id  | |
+| user_id  | (must be uniqe) |
 | level  | |
 | timestamp  | (must be uniqe) |
-| press_key  | |
-| press_time  | |
+| pressKey  | |
+| pressTime  | |
 | box  | |
-| bool  | |
+| boolStatus  | |
 
-    returns 201
+Returns current user's data as Json with HTTP status code 201.
