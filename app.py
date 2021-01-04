@@ -36,6 +36,7 @@ class Level:
 
     def __init__(self, level_no,):
         self.level_no = level_no
+        self.keys.clear()
 
     def getLevel(self):
         level_to_dict = {
@@ -58,6 +59,7 @@ class User:
     def __init__(self, user_id):
         self.user_id = int(user_id)
         if path.exists(self.getFileName()):
+            self.levels.clear()
             self.loadUserFromFile()
 
     def getFileName(self):
@@ -65,30 +67,24 @@ class User:
 
     def loadUserFromFile(self):
         with open(self.getFileName(), "r") as f:
-            loadedJson = json.load(f)
-        for level in loadedJson["levels"]:
-            my_level = Level(level["level"])
-            for key in level["keys"]:
-                my_key = Key(
-                    key["timestamp"],
-                    key["press_key"],
-                    key["press_time"],
-                    key["box"],
-                    key["boolStatus"]
+            loadedDict = json.load(f)
+        for levelDict in loadedDict["levels"]:
+            level_load = Level(levelDict["level"])
+            for keyDict in levelDict["keys"]:
+                key_load = Key(
+                    keyDict["timestamp"],
+                    keyDict["press_key"],
+                    keyDict["press_time"],
+                    keyDict["box"],
+                    keyDict["boolStatus"]
                 )
-                my_level.addKeyToLevel(my_key)
-            self.levels.append(my_level)
+                level_load.addKeyToLevel(key_load)
+            self.levels.append(level_load)
+
 
     def writeUserToFile(self):
         with open(self.getFileName(), "w") as f:
-            user_to_dict = {
-                "user_id": self.user_id,
-                "levels": []
-            }
-            for level in self.levels:
-                user_to_dict["levels"].append(level.getLevel())
-            json.dump(user_to_dict, f)
-            #print(user_to_dict)
+            json.dump(self.getUser(), f)
 
     def checkLevelExists(self, level_no):
         for level in self.levels:
@@ -102,8 +98,18 @@ class User:
             # No level, then create it
             new_level = Level(level_no)
             self.levels.append(new_level)
-
+            level_index = self.checkLevelExists(level_no)
+        print("LEVEL INDEX:", level_index)
         self.levels[level_index].addKeyToLevel(key)
+
+    def getUser(self):
+        user_dict = {
+            "user_id": self.user_id,
+            "levels": []
+        }
+        for level in self.levels:
+            user_dict["levels"].append(level.getLevel())
+        return user_dict
 
 
 
@@ -126,13 +132,16 @@ def save():
     )
 
     my_user = User(request.args.get("user_id"))
+    print("--------", len(my_user.levels))
+    for i in my_user.levels:
+        print("List item:")
+        print(i.getLevel())
     my_user.addNewKey(
         request.args.get("level"),
         incoming_key
     )
     my_user.writeUserToFile()
     
-
     return {"status": "success"}, 201
 
 
