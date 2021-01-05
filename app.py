@@ -138,8 +138,8 @@ def hello():
 @my_app.route("/api/saveData", methods=["GET", "POST"])
 def save():
     # If the request isn't POST, return 403
-    if request.method != "POST":
-        return {"status": "fail"}, 403
+    #if request.method != "POST":
+    #    return {"status": "fail"}, 403
 
     incoming_key = Key(
         request.args.get("timestamp"),
