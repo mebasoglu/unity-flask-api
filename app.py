@@ -1,6 +1,7 @@
 from os import path
+from datetime import datetime
 import json
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, redirect
 
 my_app = Flask(__name__)
 
@@ -67,6 +68,7 @@ class User:
     # (int) user_id = 999
     # (list) levels = [ {level: 1}, {level: 2} ]
     def __init__(self, user_id):
+        self.page_url = ""
         self.user_id = int(user_id)
         self.levels = []
         if path.exists(self.getFileName()):
@@ -92,6 +94,7 @@ class User:
                 )
                 level_load.addKeyToLevel(key_load)
             self.levels.append(level_load)
+        self.page_url = loadedDict["page_url"]
 
 
     def writeUserToFile(self):
@@ -123,6 +126,7 @@ class User:
     def getUser(self):
         user_dict = {
             "user_id": self.user_id,
+            "page_url": self.page_url,
             "levels": []
         }
         for level in self.levels:
@@ -165,7 +169,21 @@ def save():
     del my_user
     return jsonify(current_user), 201
 
+@my_app.route("/api/saveSurvey", methods=["GET", "POST"])
+def survey():
+    now = datetime.now()
+    timestamp = int(datetime.timestamp(now))
 
+    survey_result = {
+        "q1": request.args.get("q1"),
+        "q2": request.args.get("q2")
+    }
+
+    with open(f"data/{timestamp}_survey.json", "w") as f:
+        json.dump(survey_result, f)
+
+
+    return redirect("http://localhost:8000/?timestamp=" + str(timestamp), code=302)
 
 
 
