@@ -4,6 +4,10 @@
 # Don't forget to change the username in myproject.service and myproject_nginx_available
 # Don't forget to change the domain name in myproject_nginx_available
 
+# sed 's/sammy/vagrant/' myproject_nginx_available
+# sed 's/sammy/vagrant/' myproject.service
+# sed 's/your_domain/basoglu.me/g' myproject_nginx_available
+
 # certbot
 # sudo certbot --nginx -d your_domain -d www.your_domain
 # sudo ufw delete allow 'Nginx HTTP'
@@ -13,9 +17,8 @@
 # sudo ufw status
 
 sudo apt update
-sudo apt upgrade
-sudo apt install python3-pip python3-dev build-essential libssl-dev libffi-dev python3-setuptools
-sudo apt install python3-venv nginx certbot python3-certbot-nginx
+sudo apt upgrade -y
+sudo apt install -y python3-pip python3-dev build-essential libssl-dev libffi-dev python3-setuptools python3-venv nginx certbot python3-certbot-nginx
 
 python3 -m venv venv
 source venv/bin/activate
