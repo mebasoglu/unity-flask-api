@@ -1,7 +1,7 @@
 from os import path
 from datetime import datetime
 import json
-from flask import Flask, jsonify, request, redirect
+from flask import Flask, jsonify, request, redirect, url_for
 
 my_app = Flask(__name__)
 
@@ -182,8 +182,7 @@ def survey():
     with open(f"data/{timestamp}_survey.json", "w") as f:
         json.dump(survey_result, f)
 
-
-    return redirect("http://localhost:8000/?timestamp=" + str(timestamp), code=302)
+    return redirect(url_for("static", filename="game2101/index.html") + "?timestamp=" + str(timestamp), code=302)
 
 
 if __name__ == "main":
