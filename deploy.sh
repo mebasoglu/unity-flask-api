@@ -1,5 +1,13 @@
 #!/usr/bin/env bash
 
+# 1. Önce root olmayan kullanıcı oluştur.
+# 2. Daha sonra git clone
+# 3. Aşağıdaki sed' li komutları kontrol et, düzenle
+# 4. Scripti çalıştır.
+# 5. Hello World! Kontrol et.
+# 6. SSL sertifikası al.
+# 7. Oyunu scp ile static dizinine yükle. "/static/game2101/index.hmtl" gibi bir yapı olacak.
+
 # Run inside project directory
 # Don't forget to change the username in myproject.service and myproject_nginx_available
 # Don't forget to change the domain name in myproject_nginx_available
