@@ -280,7 +280,7 @@ def view_game():
         url = url_for("NEXT") + "?timestamp=" + timestamp
         return redirect(url)
         
-    return render_template("game2101/index.html")
+    return render_template("game2501/index.html")
 
 @my_app.route("/hello")
 def hello():
@@ -317,44 +317,15 @@ def save():
     del my_user
     return jsonify(current_user), 201
 
+@my_app.route("/debriefsheet", methods=["GET", "POST"])
+def debriefsheet():
+    if request.method == "POST":
+        return redirect(url_for("thanks"))
+    return render_template("debriefsheet.html")
 
-@my_app.route("/api/saveSurvey", methods=["GET", "POST"])
-def survey():
-    now = datetime.now()
-    timestamp = int(datetime.timestamp(now))
-
-    survey_result = {
-        "A": request.args.get("A"),
-        "G": request.args.get("G"),
-        "L": request.args.get("L"),
-        "F": request.args.get("F"),
-        "I": request.args.get("I"),
-        "D": request.args.get("D"),
-        "E": request.args.get("E"),
-        "U": request.args.get("U"),
-        "S": request.args.get("S"),
-        "G": request.args.get("G"),
-        "S1": request.args.get("S1"),
-        "H": request.args.get("H"),
-        "E1": request.args.get("E1"),
-        "P": request.args.get("P"),
-        "I1": request.args.get("I1"),
-        "A5": request.args.get("A5"),
-        "A1": request.args.get("A1"),
-        "I2": request.args.get("I1"),
-        "N": request.args.get("N"),
-        "D1": request.args.get("D1"),
-        "A2": request.args.get("A2"),
-        "J": request.args.get("J"),
-        "A3": request.args.get("A3"),
-        "A4": request.args.get("A4")
-    }
-
-    with open(f"data/{timestamp}_survey.json", "w") as f:
-        json.dump(survey_result, f)
-
-    return redirect(url_for("static", filename="game2101/index.html") + "?timestamp=" + str(timestamp), code=302)
-
+@my_app.route("/thanks")
+def thanks():
+    return render_template("thanks.html")
 
 if __name__ == "main":
     my_app.run()
