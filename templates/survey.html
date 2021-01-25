@@ -1,0 +1,594 @@
+<html>
+
+<head>
+
+
+
+</head>
+
+
+<body>
+
+
+  <!-- FORM TAGININ BAŞLANGICINA action="https://url"  EKLENMESİ GEREKİYOR -->
+  <form method="POST" id="my-form-element" cf-form class="form-horizontal">
+    <fieldset>
+
+      <!-- Form Name -->
+      <legend>Questionnaire</legend>
+      <input id="query_time" type="hidden" name="timestamp" value="" />
+
+
+
+      <p><label class="col-md-4 control-label" for="radios"><strong>Please fill these questions.</strong> </label>
+      <p>
+        <!-- Multiple Checkboxes (inline) -->
+      <div class="form-group">
+        <p> <strong>What is your age range?</strong>
+        <p>
+        <div class="col-md-4">
+
+          <label class="radio" for="checkboxes-0">
+            <input type="radio" name="A" value="y1" required> 18-25
+          </label>
+          <label class="radio" for="checkboxes-0">
+            <input type="radio" name="A" value="y2"> 26-35
+          </label>
+          <label class="radio" for="checkboxes-0">
+            <input type="radio" name="A" value="y3"> 36-45
+          </label>
+          <label class="radio" for="checkboxes-0">
+            <input type="radio" name="A" value="y4"> 45 and over
+          </label>
+        </div>
+      </div>
+
+      <!-- Multiple Checkboxes (inline) -->
+      <div class="form-group">
+        <p> <strong>What gender do you identify with?</strong>
+        <p>
+        <div class="col-md-4">
+          <label class="radio" for="checkboxes-0">
+            <input type="radio" name="GE" value="F" required> Female
+          </label>
+
+          <label class="radio" for="checkboxes-0">
+            <input type="radio" name="GE" value="M"> Male
+          </label>
+
+          <label class="radio" for="checkboxes-0">
+            <input type="radio" name="GE" value="P"> Prefer not to say
+          </label>
+
+          <label class="radio" for="checkboxes-0">
+            <input type="radio" name="GE" value="O"> Other
+          </label>
+        </div>
+      </div>
+
+      <!-- Multiple Checkboxes (inline) -->
+      <div class="form-group">
+        <p> <strong>Where do you like playing games?</strong>
+        <p>
+        <div class="col-md-4">
+          <label class="radio" for="checkboxes-0">
+            <input type="radio" name="L" value="P" required> PC
+          </label>
+          <label class="radio" for="checkboxes-0">
+            <input type="radio" name="L" value="M"> Mobile Phone
+          </label>
+          <label class="radio" for="checkboxes-0">
+            <input type="radio" name="L" value="C"> Console (e.g. Wii, PS)
+          </label>
+          <label class="radio" for="checkboxes-0">
+            <input type="radio" name="L" value="O"> Others
+          </label>
+        </div>
+      </div>
+
+      <!-- Multiple Checkboxes (inline) -->
+      <div class="form-group">
+        <p> <strong>How often do you play game?</strong>
+        <p>
+        <div class="col-md-4">
+
+          <label class="radio" for="checkboxes-0">
+            <input type="radio" name="F" value="E" required> Everyday
+          </label>
+          <label class="radio" for="checkboxes-0">
+            <input type="radio" name="F" value="TD"> Once per two days
+          </label>
+          <label class="radio" for="checkboxes-0">
+            <input type="radio" name="F" value="PW"> Once per a week
+          </label>
+          <label class="radio" for="checkboxes-0">
+            <input type="radio" name="F" value="R"> Rarely
+          </label>
+        </div>
+      </div>
+
+      <!-- a mandatory choice -->
+      <div class="form-group">
+
+        <p><label class="col-md-4 control-label" for="radios"><strong>Before starting the game, please fill the PANAS
+              questionnaire.</strong> </label>
+        <p>
+        <p><label class="col-md-4 control-label" for="radios">PANAS consists of 20 words that describe different
+            feelings and emotions. Please read each word and then mark the appropriate answer in the space.</label>
+        <div class="form-group">
+          <p> <strong>Interested</strong>
+          <p>
+          <div class="col-md-4">
+
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="I" value="I1" required> Very slightly or not at all
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="I" value="I2"> A little
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="I" value="I3"> Moderately
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="I" value="I4  "> Quite a bit
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="I" value="I5"> Extremely
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <p> <strong>Distressed</strong>
+          <p>
+          <div class="col-md-4">
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="D" value="D1" required> Very slightly or not at all
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="D" value=" D2"> A little
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="D" value="D3"> Moderately
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="D" value="D4"> Quite a bit
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="D" value="D5"> Extremely
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <p> <strong>Excited</strong>
+          <p>
+          <div class="col-md-4">
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="E" value="E1" required> Very slightly or not at all
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="E" value="E2"> A little
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="E" value="E3"> Moderately
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="E" value="E4"> Quite a bit
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="E" value="E5"> Extremely
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <p> <strong>Upset</strong>
+          <p>
+          <div class="col-md-4">
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="U" value="U1" required> Very slightly or not at all
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="U" value="U2"> A little
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="U" value="U3"> Moderately
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="U" value="U4"> Quite a bit
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="U" value="U5"> Extremely
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <p> <strong>Strong</strong>
+          <p>
+          <div class="col-md-4">
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="S" value="S1" required> Very slightly or not at all
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="S" value="S2"> A little
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="S" value="S3"> Moderately
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="S" value="S4"> Quite a bit
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="S" value="S5"> Extremely
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <p> <strong>Guilty</strong>
+          <p>
+          <div class="col-md-4">
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="G" value="G1" required> Very slightly or not at all
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="G" value="G2"> A little
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="G" value="G3"> Moderately
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="G" value="G4"> Quite a bit
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="G" value="G5"> Extremely
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <p> <strong>Scared</strong>
+          <p>
+          <div class="col-md-4">
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="S1" value="S11" required> Very slightly or not at all
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="S1" value=" S12"> A little
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="S1" value="S13"> Moderately
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="S1" value="S14"> Quite a bit
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="S1" value="S15"> Extremely
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <p> <strong>Hostile</strong>
+          <p>
+          <div class="col-md-4">
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="H" value="H1" required> Very slightly or not at all
+            </label>
+
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="H" value="H2"> A little
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="H" value="H3"> Moderately
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="H" value="H4"> Quite a bit
+            </label>
+
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="H" value="H5"> Extremely
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <p> <strong>Enthusiastic</strong>
+          <p>
+          <div class="col-md-4">
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="E1" value="E11" required> Very slightly or not at all
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="E1" value="E12"> A little
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="E1" value="E13"> Moderately
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="E1" value="E14 "> Quite a bit
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="E1" value="E15"> Extremely
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <p> <strong>Proud</strong>
+          <p>
+          <div class="col-md-4">
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="P" value="P1" required> Very slightly or not at all
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="P" value="P2"> A little
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="P" value="P3"> Moderately
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="P" value="P4"> Quite a bit
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="P" value="P5"> Extremely
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <p> <strong>Irritable</strong>
+          <p>
+          <div class="col-md-4">
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="I1" value="I11" required> Very slightly or not at all
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="I1" value="I12"> A little
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="I1" value="I13"> Moderately
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="I1" value="I14"> Quite a bit
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="I1" value="I15"> Extremely
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <p> <strong>Alert</strong>
+          <p>
+          <div class="col-md-4">
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="A5" value="A1" required> Very slightly or not at all
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="A5" value="A2"> A little
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="A5" value="A3"> Moderately
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="A5" value="A4"> Quite a bit
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="A5" value="A5"> Extremely
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <p> <strong>Ashamed</strong>
+          <p>
+          <div class="col-md-4">
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="A1" value="A11" required> Very slightly or not at all
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="A1" value="A12"> A little
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="A1" value="A13"> Moderately
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="A1" value="A14"> Quite a bit
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="A1" value="A15"> Extremely
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <p> <strong>Inspired</strong>
+          <p>
+          <div class="col-md-4">
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="I2" value="I21" required> Very slightly or not at all
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="I2" value="I22"> A little
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="I2" value="I23"> Moderately
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="I2" value="I24"> Quite a bit
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="I2" value="I25"> Extremely
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <p> <strong>Nervous</strong>
+          <p>
+          <div class="col-md-4">
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="N" value="N1" required> Very slightly or not at all
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="N" value="N2"> A little
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="N" value="N3"> Moderately
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="N" value="N4"> Quite a bit
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="N" value="N5"> Extremely
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <p> <strong>Determined</strong>
+          <p>
+          <div class="col-md-4">
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="D1" value="D11" required> Very slightly or not at all
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="D1" value="D12"> A little
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="D1" value="D13" /> Moderately
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="D1" value="D14" /> Quite a bit
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="D1" value="D15" /> Extremely
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <p> <strong>Attentive</strong>
+          <p>
+          <div class="col-md-4">
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="A2" value="A21" required> Very slightly or not at all
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="A2" value="A22"> A little
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="A2" value="A23"> Moderately
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="A2" value="A24"> Quite a bit
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="A2" value="A25"> Extremely
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <p> <strong>Jittery</strong>
+          <p>
+          <div class="col-md-4">
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="J" value="J1" required> Very slightly or not at all
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="J" value="J2"> A little
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="J" value="J3"> Moderately
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="J" value="J4"> Quite a bit
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="J" value="J5"> Extremely
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <p> <strong>Active</strong>
+          <p>
+          <div class="col-md-4">
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="A3" value="A31" required> Very slightly or not at all
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="A3" value="A32"> A little
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="A3" value="A33"> Moderately
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="A3" value="A34"> Quite a bit
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="A3" value="A35"> Extremely
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <p> <strong>Afraid</strong>
+          <p>
+          <div class="col-md-4">
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="A4" value="A41" required> Very slightly or not at all
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="A4" value="A42"> A little
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="A4" value="A43"> Moderately
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="A4" value="A44"> Quite a bit
+            </label>
+            <label class="radio" for="checkboxes-0">
+              <input type="radio" name="A4" value="A45"> Extremely
+            </label>
+          </div>
+        </div>
+
+        <!-------- Gönder Butonu -------->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="Send"></label>
+          <div class="col-md-4">
+            <input type="submit" id="send" value="Send" class="btn btn-primary"></input>
+          </div>
+        </div>
+        <!-------- Gönder Butonu -------->
+
+
+
+
+
+    </fieldset>
+  </form>
+  
+  <script>
+    function getParameterByName(name, url = window.location.href) {
+      name = name.replace(/[\[\]]/g, '\\$&');
+      var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+        results = regex.exec(url);
+      if (!results) return null;
+      if (!results[2]) return '';
+      return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    }
+    document.getElementById("query_time").value = getParameterByName("timestamp")
+
+    history.pushState({
+      id: 'homepage'
+    }, 'Home | My App', '/survey');
+
+  </script>
+  
+</body>

@@ -1,9 +1,10 @@
 from os import path
 from datetime import datetime
 import json
-from flask import Flask, jsonify, request, redirect, url_for
+from flask import Flask, jsonify, request, redirect, url_for, render_template
 
 my_app = Flask(__name__)
+
 
 class Key:
     # timestamp = 0
@@ -21,13 +22,12 @@ class Key:
 
     def getKey(self):
         return {
-                "timestamp": self.timestamp,
-                "press_key": self.press_key,
-                "press_time": self.press_time,
-                "box": self.box,
-                "boolStatus": self.boolStatus
-            }
-        
+            "timestamp": self.timestamp,
+            "press_key": self.press_key,
+            "press_time": self.press_time,
+            "box": self.box,
+            "boolStatus": self.boolStatus
+        }
 
 
 class Level:
@@ -37,7 +37,7 @@ class Level:
     def __init__(self, level_no,):
         self.level_no = level_no
         self.keys = []
-        #self.keys.clear()
+        # self.keys.clear()
 
     def getLevel(self):
         level_to_dict = {
@@ -47,8 +47,8 @@ class Level:
         for key in self.keys:
             level_to_dict["keys"].append(key.getKey())
         return level_to_dict
-    
-    def checkKeyExists(self,key):
+
+    def checkKeyExists(self, key):
         # True -> Level has that key.
         # False -> Level does'nt have it.
         for existingKey in self.keys:
@@ -72,7 +72,7 @@ class User:
         self.user_id = int(user_id)
         self.levels = []
         if path.exists(self.getFileName()):
-            #self.levels.clear()
+            # self.levels.clear()
             self.loadUserFromFile()
 
     def getFileName(self):
@@ -95,7 +95,6 @@ class User:
                 level_load.addKeyToLevel(key_load)
             self.levels.append(level_load)
         self.page_url = loadedDict["page_url"]
-
 
     def writeUserToFile(self):
         with open(self.getFileName(), "w") as f:
@@ -134,15 +133,164 @@ class User:
         return user_dict
 
 
+@my_app.route("/", methods=["GET", "POST"])
+def index():
+    now = datetime.now()
+    timestamp = int(datetime.timestamp(now))
+    url = url_for("view_survey") + "?timestamp=" + str(timestamp)
+    if request.method == "POST":
+        return redirect(url)
+    return render_template("intro_form.html")
 
-@my_app.route("/")
+
+@my_app.route("/survey", methods=["GET", "POST"])
+def view_survey():
+    if request.method == "POST":
+        timestamp = request.form["timestamp"]
+        print("TAYMSITEMP: ", timestamp)
+        print("----A: ", request.form["A"])
+        survey_result = {
+            "A": request.form["A"],
+            "GE": request.form["GE"],
+            "L": request.form["L"],
+            "F": request.form["F"],
+            "I": request.form["I"],
+            "D": request.form["D"],
+            "E": request.form["E"],
+            "U": request.form["U"],
+            "S": request.form["S"],
+            "G": request.form["G"],
+            "S1": request.form["S1"],
+            "H": request.form["H"],
+            "E1": request.form["E1"],
+            "P": request.form["P"],
+            "I1": request.form["I1"],
+            "A5": request.form["A5"],
+            "A1": request.form["A1"],
+            "I2": request.form["I1"],
+            "N": request.form["N"],
+            "D1": request.form["D1"],
+            "A2": request.form["A2"],
+            "J": request.form["J"],
+            "A3": request.form["A3"],
+            "A4": request.form["A4"]
+        }
+        with open(f"data/{timestamp}_survey.json", "w") as f:
+            json.dump(survey_result, f)
+        url = url_for("view_colour") + "?timestamp=" + timestamp
+        return redirect(url)
+    return render_template("survey.html")
+
+
+@my_app.route("/colourblindtest", methods=["GET", "POST"])
+def view_colour():
+    if request.method == "POST":
+        timestamp = request.form["timestamp"]
+        survey_result = {
+            "12": request.form["12"],
+            "74": request.form["74"],
+            "6": request.form["6"],
+            "16": request.form["16"],
+            "2": request.form["2"],
+            "29": request.form["29"],
+            "7": request.form["7"],
+            "45": request.form["45"],
+            "5": request.form["5"],
+            "97": request.form["97"],
+            "8": request.form["8"],
+            "42": request.form["42"],
+            "3": request.form["3"]
+        }
+        with open(f"data/{timestamp}_colour.json", "w") as f:
+            json.dump(survey_result, f)
+        url = url_for("view_video") + "?timestamp=" + timestamp
+        return redirect(url)
+        
+    return render_template("colourblindtest.html")
+
+@my_app.route("/video", methods=["GET", "POST"])
+def view_video():
+    if request.method == "POST":
+        timestamp = request.form["timestamp"]
+        survey_result = {
+            "Arousal1": request.form["Arousal1"],
+            "Valence1": request.form["Valence1"],
+            "Arousal2": request.form["Arousal2"],
+            "Valence2": request.form["Valence2"],
+            "Arousal3": request.form["Arousal3"],
+            "Valence3": request.form["Valence3"],
+            "Arousal4": request.form["Arousal4"],
+            "Valence4": request.form["Valence4"],
+            "Arousal5": request.form["Arousal5"],
+            "Valence5": request.form["Valence5"],
+            "Arousal6": request.form["Arousal6"],
+            "Valence6": request.form["Valence6"],
+            "Arousal7": request.form["Arousal7"],
+            "Valence7": request.form["Valence7"],
+            "Arousal8": request.form["Arousal8"],
+            "Valence8": request.form["Valence8"],
+            "Arousal9": request.form["Arousal9"],
+            "Valence9": request.form["Valence9"]
+        }
+        with open(f"data/{timestamp}_video.json", "w") as f:
+            json.dump(survey_result, f)
+        url = url_for("view_textures") + "?timestamp=" + timestamp
+        return redirect(url)
+        
+    return render_template("video.html")
+
+@my_app.route("/textures", methods=["GET", "POST"])
+def view_textures():
+    if request.method == "POST":
+        timestamp = request.form["timestamp"]
+        survey_result = {
+            "T1": request.form["T1"],
+            "T2": request.form["T2"],
+            "T3": request.form["T3"],
+            "T4": request.form["T4"],
+            "T5": request.form["T5"],
+            "T6": request.form["T6"],
+            "T7": request.form["T7"],
+            "T8": request.form["T8"],
+            "T9": request.form["T9"],
+            "T10": request.form["T10"],
+            "T11": request.form["T11"],
+            "T12": request.form["T12"]
+        }
+        with open(f"data/{timestamp}_textures.json", "w") as f:
+            json.dump(survey_result, f)
+        url = url_for("view_game_description") + "?timestamp=" + timestamp
+        return redirect(url)
+        
+    return render_template("textures.html")
+
+@my_app.route("/game_description", methods=["GET", "POST"])
+def view_game_description():
+    if request.method == "POST":
+        timestamp = request.form["timestamp"]
+        url = url_for("view_game") + "?timestamp=" + timestamp
+        return redirect(url)
+        
+    return render_template("game_description.html")
+
+@my_app.route("/game", methods=["GET", "POST"])
+def view_game():
+    if request.method == "POST":
+        timestamp = request.form["timestamp"]
+        url = url_for("NEXT") + "?timestamp=" + timestamp
+        return redirect(url)
+        
+    return render_template("game2101/index.html")
+
+@my_app.route("/hello")
 def hello():
     return "Hello World!"
+
 
 @my_app.route("/api/saveData", methods=["GET", "POST"])
 def save():
     # If the request isn't POST, return 403
-    #if request.method != "POST":
+    # if request.method != "POST":
     #    return {"status": "fail"}, 403
 
     incoming_key = Key(
@@ -165,9 +313,10 @@ def save():
 
     current_user = my_user.getUser()
     my_user.writeUserToFile()
-    
+
     del my_user
     return jsonify(current_user), 201
+
 
 @my_app.route("/api/saveSurvey", methods=["GET", "POST"])
 def survey():
@@ -175,8 +324,30 @@ def survey():
     timestamp = int(datetime.timestamp(now))
 
     survey_result = {
-        "q1": request.args.get("q1"),
-        "q2": request.args.get("q2")
+        "A": request.args.get("A"),
+        "G": request.args.get("G"),
+        "L": request.args.get("L"),
+        "F": request.args.get("F"),
+        "I": request.args.get("I"),
+        "D": request.args.get("D"),
+        "E": request.args.get("E"),
+        "U": request.args.get("U"),
+        "S": request.args.get("S"),
+        "G": request.args.get("G"),
+        "S1": request.args.get("S1"),
+        "H": request.args.get("H"),
+        "E1": request.args.get("E1"),
+        "P": request.args.get("P"),
+        "I1": request.args.get("I1"),
+        "A5": request.args.get("A5"),
+        "A1": request.args.get("A1"),
+        "I2": request.args.get("I1"),
+        "N": request.args.get("N"),
+        "D1": request.args.get("D1"),
+        "A2": request.args.get("A2"),
+        "J": request.args.get("J"),
+        "A3": request.args.get("A3"),
+        "A4": request.args.get("A4")
     }
 
     with open(f"data/{timestamp}_survey.json", "w") as f:
@@ -186,4 +357,4 @@ def survey():
 
 
 if __name__ == "main":
-    my_app.run(debug=True)
+    my_app.run()

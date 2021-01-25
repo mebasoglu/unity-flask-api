@@ -1,0 +1,82 @@
+<html>
+
+<head>
+</head>
+
+
+<body>
+
+
+  <!-- FORM TAGININ BAŞLANGICINA action="https://url"  EKLENMESİ GEREKİYOR -->
+
+  <form method="POST" class="form-horizontal">
+    <fieldset>
+
+      <!-- Form Name -->
+      <legend>The Game Rules</legend>
+      <input id="query_time" type="hidden" name="timestamp" value="" />
+
+
+      <!-- a mandatory choice -->
+      <div class="form-group">
+
+        <label class="col-md-4 control-label" for="radios"><strong>Welcome! Thank you for deciding to take part in this
+            experiment:) </strong></label>
+        <div class="col-md-4">
+          <p><label class="col-md-4 control-label" for="radios"><strong> Please read the rules of the
+                game!</strong></label></p>
+          <p><label class="col-md-4 control-label" for="radios">The game has 6 conditions </label>
+          <p><label class="col-md-4 control-label" for="radios">In different trials, they will be asked to choose
+              between objects of different colours (warm or cool) and textures (simple or complex) by pressing keyboard
+              buttons. </label>
+          <p><label class="col-md-4 control-label" for="radios"> This is achieved by </p>
+          <p><label class="col-md-4 control-label" for="radios">• clicking the button “E” to destroy the boxes that
+              consist of warm colours or complex textures.</p>
+          <p><label class="col-md-4 control-label" for="radios">• clicking the button “O” to destroy the boxes that are
+              covered by cool colours or simple textures.</p>
+          <p><input type="checkbox" required="">
+            <label>I understand.</label><br>
+          <p><label class="col-md-4 control-label" for="radios"><strong>Please play the game in full
+                screen!</strong></label></p>
+          <p><input type="checkbox" required="">
+            <label>I understand.</label><br>
+          <p><label class="col-md-4 control-label" for="radios"><strong>Please read the debrief sheet at the end of the
+                game and click the "I read and undertand" box after read it!</strong></label></p>
+          <p><input type="checkbox" required="">
+            <label>I understand.</label><br>
+            <!-------- Gönder Butonu -------->
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="Play"></label>
+            <div class="col-md-4">
+              <input type="submit" id="send" value="Play" class="btn btn-primary"></input>
+            </div>
+          </div>
+          </p>
+          </p>
+          </p>
+          </p>
+          </p>
+        </div>
+      </div>
+    </fieldset>
+  </form>
+  <script>
+    function getParameterByName(name, url = window.location.href) {
+      name = name.replace(/[\[\]]/g, '\\$&');
+      var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+        results = regex.exec(url);
+      if (!results) return null;
+      if (!results[2]) return '';
+      return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    }
+    document.getElementById("query_time").value = getParameterByName("timestamp")
+
+    history.pushState({
+      id: 'homepage'
+    }, 'Home | My App', '/game_description');
+
+  </script>
+</body>
+<!-------- Gönder Butonu -------->
+
+</html>
