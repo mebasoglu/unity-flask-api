@@ -133,6 +133,60 @@ class User:
         return user_dict
 
 
+class Box:
+    # (string) box_name
+    # (int) level
+    def __init__(self, box_name, level):
+        self.box_name = box_name
+        self.level = int(level)
+
+    def getBox(self):
+        return {
+            "box_name": self.box_name,
+            "level": self.level
+        }
+
+
+class BoxInfo:
+    # (int) user_id = 123
+    # (list) boxes = [Box1, Box2]
+    def __init__(self, user_id):
+        self.user_id = int(user_id)
+        self.boxes = []
+        if path.exists(self.getFileName()):
+            self.loadBoxInfoFromFile()
+
+    def getFileName(self):
+        return "data/" + str(self.user_id) + "_boxes.json"
+    
+    def loadBoxInfoFromFile(self):
+        with open(self.getFileName(), "r") as f:
+            loadedDict = json.load(f)
+        for box in loadedDict["boxes"]:
+            box_load = Box(box["box_name"], box["level"])
+            self.boxes.append(box_load)
+
+    def getBoxInfo(self):
+        info_dict = {
+            "user_id": self.user_id,
+            "boxes": []
+        }
+        for box in self.boxes:
+            info_dict["boxes"].append(box.getBox())
+        return info_dict
+        
+    def writeBoxInfoToFile(self):
+        print(
+            "Box info: ",
+            self.getBoxInfo()
+        )
+        with open(self.getFileName(), "w") as f:
+            json.dump(self.getBoxInfo(), f)
+
+    def addNewBox(self, box):
+        self.boxes.append(box)
+
+
 @my_app.route("/", methods=["GET", "POST"])
 def index():
     now = datetime.now()
@@ -326,6 +380,20 @@ def debriefsheet():
 @my_app.route("/thanks")
 def thanks():
     return render_template("thanks.html")
+
+@my_app.route("/api/saveBox", methods=["GET", "POST"])
+def save_box():
+    # GET (user_id, box_name, level)
+    incoming_box = Box(
+        request.args.get("box_name"),
+        request.args.get("level")
+    )
+    print("Gelen kutu: ", incoming_box.getBox())
+    my_box_info = BoxInfo(request.args.get("user_id"))
+    my_box_info.addNewBox(incoming_box)
+    my_box_info.writeBoxInfoToFile()
+
+    return jsonify(my_box_info.getBoxInfo()), 201
 
 if __name__ == "main":
     my_app.run()
