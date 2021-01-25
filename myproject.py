@@ -268,19 +268,19 @@ def view_textures():
 def view_game_description():
     if request.method == "POST":
         timestamp = request.form["timestamp"]
-        url = url_for("view_game") + "?timestamp=" + timestamp
+        url = url_for("static", filename="game2501/index.html") + "?timestamp=" + timestamp
         return redirect(url)
         
     return render_template("game_description.html")
 
-@my_app.route("/game", methods=["GET", "POST"])
-def view_game():
-    if request.method == "POST":
-        timestamp = request.form["timestamp"]
-        url = url_for("NEXT") + "?timestamp=" + timestamp
-        return redirect(url)
+# @my_app.route("/game", methods=["GET", "POST"])
+# def view_game():
+#     if request.method == "POST":
+#         timestamp = request.form["timestamp"]
+#         url = url_for("NEXT") + "?timestamp=" + timestamp
+#         return redirect(url)
         
-    return render_template("game2501/index.html")
+#     return render_template("game2501/index.html")
 
 @my_app.route("/hello")
 def hello():
