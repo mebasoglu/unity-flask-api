@@ -282,9 +282,7 @@ def view_video():
             "Arousal7": request.form["Arousal7"],
             "Valence7": request.form["Valence7"],
             "Arousal8": request.form["Arousal8"],
-            "Valence8": request.form["Valence8"],
-            "Arousal9": request.form["Arousal9"],
-            "Valence9": request.form["Valence9"]
+            "Valence8": request.form["Valence8"]
         }
         with open(f"data/{timestamp}_video.json", "w") as f:
             json.dump(survey_result, f)
