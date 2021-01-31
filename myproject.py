@@ -136,14 +136,17 @@ class User:
 class Box:
     # (string) box_name
     # (int) level
-    def __init__(self, box_name, level):
+    # (int) timestamp
+    def __init__(self, box_name, level, timestamp):
         self.box_name = box_name
         self.level = int(level)
+        self.timestamp = timestamp
 
     def getBox(self):
         return {
             "box_name": self.box_name,
-            "level": self.level
+            "level": self.level,
+            "timestamp": self.timestamp
         }
 
 
@@ -163,7 +166,7 @@ class BoxInfo:
         with open(self.getFileName(), "r") as f:
             loadedDict = json.load(f)
         for box in loadedDict["boxes"]:
-            box_load = Box(box["box_name"], box["level"])
+            box_load = Box(box["box_name"], box["level"], box["timestamp"])
             self.boxes.append(box_load)
 
     def getBoxInfo(self):
@@ -384,7 +387,8 @@ def save_box():
     # GET (user_id, box_name, level)
     incoming_box = Box(
         request.args.get("box_name"),
-        request.args.get("level")
+        request.args.get("level"),
+        request.args.get("timestamp")
     )
     print("Gelen kutu: ", incoming_box.getBox())
     my_box_info = BoxInfo(request.args.get("user_id"))
