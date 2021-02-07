@@ -189,6 +189,141 @@ class BoxInfo:
     def addNewBox(self, box):
         self.boxes.append(box)
 
+class LevelStartHandler:
+    # (int) user_id = 123
+    # (list) level_start_times = [{level:1, timestamp:123}, {level:2, timestamp:123}]
+    def __init__(self, user_id):
+        self.user_id = int(user_id)
+        self.level_start_times = []
+        if path.exists(self.getFileName()):
+            self.loadLevelStartHandlerFromFile()
+
+    def getFileName(self):
+        return "data/" + str(self.user_id) + "_level_start.json"
+
+    def loadLevelStartHandlerFromFile(self):
+        with open(self.getFileName(), "r") as f:
+            loadedDict = json.load(f)
+        for time in loadedDict["level_start_times"]:
+            self.level_start_times.append(time)
+
+    def getLevelStartInfo(self):
+        info_dict = {
+            "user_id": self.user_id,
+            "level_start_times": []
+        }
+        for time in self.level_start_times:
+            info_dict["level_start_times"].append(time)
+        return info_dict
+
+    def writeLevelStartTimeIntoFile(self):
+        with open(self.getFileName(), "w") as f:
+            json.dump(self.getLevelStartInfo(), f)
+
+    def addNewTime(self, time):
+        self.level_start_times.append(time)
+
+class LevelEndHandler:
+    # (int) user_id = 123
+    # (list) level_end_times = [{level:1, timestamp:123}, {level:2, timestamp:123}]
+    def __init__(self, user_id):
+        self.user_id = int(user_id)
+        self.level_end_times = []
+        if path.exists(self.getFileName()):
+            self.loadLevelEndHandlerFromFile()
+
+    def getFileName(self):
+        return "data/" + str(self.user_id) + "_level_end.json"
+
+    def loadLevelEndHandlerFromFile(self):
+        with open(self.getFileName(), "r") as f:
+            loadedDict = json.load(f)
+        for time in loadedDict["level_end_times"]:
+            self.level_end_times.append(time)
+
+    def getLevelEndInfo(self):
+        info_dict = {
+            "user_id": self.user_id,
+            "level_end_times": []
+        }
+        for time in self.level_end_times:
+            info_dict["level_end_times"].append(time)
+        return info_dict
+
+    def writeLevelEndTimeIntoFile(self):
+        with open(self.getFileName(), "w") as f:
+            json.dump(self.getLevelEndInfo(), f)
+
+    def addNewTime(self, time):
+        self.level_end_times.append(time)
+
+class VideoStartHandler:
+    # (int) user_id = 123
+    # (list) videos = [{level:1, video_name:v1, video_start_time:456}, {}]
+    def __init__(self, user_id):
+        self.user_id = int(user_id)
+        self.videos = []
+        if path.exists(self.getFileName()):
+            self.loadVideoStartHandlerFromFile()
+
+    def getFileName(self):
+        return "data/" + str(self.user_id) + "_video_start.json"
+
+    def loadVideoStartHandlerFromFile(self):
+        with open(self.getFileName(), "r") as f:
+            loadedDict = json.load(f)
+        for video in loadedDict["videos"]:
+            self.videos.append(video)
+
+    def getVideoStartInfo(self):
+        info_dict = {
+            "user_id": self.user_id,
+            "videos": []
+        }
+        for video in self.videos:
+            info_dict["videos"].append(video)
+        return info_dict
+
+    def writeVideoStartTimeIntoFile(self):
+        with open(self.getFileName(), "w") as f:
+            json.dump(self.getVideoStartInfo(), f)
+
+    def addNewTime(self, time):
+        self.videos.append(time)
+
+class VideoEndHandler:
+    # (int) user_id = 123
+    # (list) videos = [{level:1, video_name:v1, video_start_time:456}, {}]
+    def __init__(self, user_id):
+        self.user_id = int(user_id)
+        self.videos = []
+        if path.exists(self.getFileName()):
+            self.loadVideoEndHandlerFromFile()
+
+    def getFileName(self):
+        return "data/" + str(self.user_id) + "_video_end.json"
+
+    def loadVideoEndHandlerFromFile(self):
+        with open(self.getFileName(), "r") as f:
+            loadedDict = json.load(f)
+        for video in loadedDict["videos"]:
+            self.videos.append(video)
+
+    def getVideoEndInfo(self):
+        info_dict = {
+            "user_id": self.user_id,
+            "videos": []
+        }
+        for video in self.videos:
+            info_dict["videos"].append(video)
+        return info_dict
+
+    def writeVideoEndTimeIntoFile(self):
+        with open(self.getFileName(), "w") as f:
+            json.dump(self.getVideoEndInfo(), f)
+
+    def addNewTime(self, time):
+        self.videos.append(time)
 
 @my_app.route("/", methods=["GET", "POST"])
 def index():
@@ -397,5 +532,81 @@ def save_box():
 
     return jsonify(my_box_info.getBoxInfo()), 201
 
+@my_app.route("/api/saveLevelStartTime", methods=["GET", "POST"])
+def save_level_start_time():
+    incoming_data = {
+        "user_id": request.args.get("user_id"),
+        "level": request.args.get("level"),
+        "level_start_time": request.args.get("level_start_time")
+    }
+    my_start_time = LevelStartHandler(incoming_data["user_id"])
+    my_start_time.addNewTime(
+        {
+            "level": incoming_data["level"],
+            "level_start_time": incoming_data["level_start_time"]
+        }
+    )
+    my_start_time.writeLevelStartTimeIntoFile()
+
+    return jsonify(my_start_time.getLevelStartInfo()), 201
+
+@my_app.route("/api/saveLevelEndTime", methods=["GET", "POST"])
+def save_level_end_time():
+    incoming_data = {
+        "user_id": request.args.get("user_id"),
+        "level": request.args.get("level"),
+        "level_end_time": request.args.get("level_end_time")
+    }
+    my_end_time = LevelEndHandler(incoming_data["user_id"])
+    my_end_time.addNewTime(
+        {
+            "level": incoming_data["level"],
+            "level_end_time": incoming_data["level_end_time"]
+        }
+    )
+    my_end_time.writeLevelEndTimeIntoFile()
+
+    return jsonify(my_end_time.getLevelEndInfo()), 201
+
+@my_app.route("/api/saveVideoStartTime", methods=["GET", "POST"])
+def save_video_start_time():
+    incoming_data = {
+        "user_id": request.args.get("user_id"),
+        "level": request.args.get("level"),
+        "video_name": request.args.get("video_name"),
+        "video_start_time": request.args.get("video_start_time")
+    }
+    my_start_time = VideoStartHandler(incoming_data["user_id"])
+    my_start_time.addNewTime(
+        {
+            "level": incoming_data["level"],
+            "video_name": incoming_data["video_name"],
+            "video_start_time": incoming_data["video_start_time"]
+        }
+    )
+    my_start_time.writeVideoStartTimeIntoFile()
+
+    return jsonify(my_start_time.getVideoStartInfo()), 201
+
+@my_app.route("/api/saveVideoEndTime", methods=["GET", "POST"])
+def save_video_end_time():
+    incoming_data = {
+        "user_id": request.args.get("user_id"),
+        "level": request.args.get("level"),
+        "video_name": request.args.get("video_name"),
+        "video_end_time": request.args.get("video_end_time")
+    }
+    my_end_time = VideoEndHandler(incoming_data["user_id"])
+    my_end_time.addNewTime(
+        {
+            "level": incoming_data["level"],
+            "video_name": incoming_data["video_name"],
+            "video_end_time": incoming_data["video_end_time"]
+        }
+    )
+    my_end_time.writeVideoEndTimeIntoFile()
+
+    return jsonify(my_end_time.getVideoEndInfo()), 201
+
 if __name__ == "main":
-    my_app.run()
+    my_app.run(debug=True)
