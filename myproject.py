@@ -325,6 +325,40 @@ class VideoEndHandler:
     def addNewTime(self, time):
         self.videos.append(time)
 
+class LevelMainHandler:
+    # (int) user_id = 123
+    # (list) levels = [{level:1, main_start_time:v1}, {}]
+    def __init__(self, user_id):
+        self.user_id = int(user_id)
+        self.levels = []
+        if path.exists(self.getFileName()):
+            self.loadLevelMainHandlerFromFile()
+
+    def getFileName(self):
+        return "data/" + str(self.user_id) + "_level_main.json"
+
+    def loadLevelMainHandlerFromFile(self):
+        with open(self.getFileName(), "r") as f:
+            loadedDict = json.load(f)
+        for level in loadedDict["levels"]:
+            self.levels.append(level)
+
+    def getLevelMainInfo(self):
+        info_dict = {
+            "user_id": self.user_id,
+            "levels": []
+        }
+        for level in self.levels:
+            info_dict["levels"].append(level)
+        return info_dict
+
+    def writeLevelMainTimeIntoFile(self):
+        with open(self.getFileName(), "w") as f:
+            json.dump(self.getLevelMainInfo(), f)
+
+    def addNewTime(self, time):
+        self.levels.append(time)
+
 @my_app.route("/", methods=["GET", "POST"])
 def index():
     now = datetime.now()
@@ -608,5 +642,23 @@ def save_video_end_time():
 
     return jsonify(my_end_time.getVideoEndInfo()), 201
 
+@my_app.route("/api/saveLevelMainTime", methods=["GET", "POST"])
+def save_level_main_time():
+    incoming_data = {
+        "user_id": request.args.get("user_id"),
+        "level": request.args.get("level"),
+        "main_start_time": request.args.get("main_start_time")
+    }
+    my_level_main = LevelMainHandler(incoming_data["user_id"])
+    my_level_main.addNewTime(
+        {
+            "level": incoming_data["level"],
+            "main_start_time": incoming_data["main_start_time"],
+        }
+    )
+    my_level_main.writeLevelMainTimeIntoFile()
+
+    return jsonify(my_level_main.getLevelMainInfo()), 201
+
 if __name__ == "main":
-    my_app.run(debug=True)
+    my_app.run()
