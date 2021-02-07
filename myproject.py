@@ -413,19 +413,9 @@ def view_colour():
     if request.method == "POST":
         timestamp = request.form["timestamp"]
         survey_result = {
-            "12": request.form["12"],
             "74": request.form["74"],
-            "6": request.form["6"],
-            "16": request.form["16"],
-            "2": request.form["2"],
             "29": request.form["29"],
-            "7": request.form["7"],
-            "45": request.form["45"],
-            "5": request.form["5"],
-            "97": request.form["97"],
-            "8": request.form["8"],
-            "42": request.form["42"],
-            "3": request.form["3"]
+            "8": request.form["8"]
         }
         with open(f"data/{timestamp}_colour.json", "w") as f:
             json.dump(survey_result, f)
