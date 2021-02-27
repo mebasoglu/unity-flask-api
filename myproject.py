@@ -393,12 +393,74 @@ class CounterHandler:
     def addNewCount(self, count):
         self.counter.append(count)
 
+class CheckHandler:
+    def __init__(self, user_id):
+        self.user_id = int(user_id)
+        self.check_boxes = {
+            "c1": False,
+            "c2": False,
+            "c3": False,
+            "c4": False,
+            "c5": False,
+            "c6": False,
+            "c7": False
+        }
+        if path.exists(self.getFileName()):
+            self.loadLevelMainHandlerFromFile()
+
+    def getFileName(self):
+        return "data/" + str(self.user_id) + "_check.json"
+
+    def loadLevelMainHandlerFromFile(self):
+        with open(self.getFileName(), "r") as f:
+            loadedDict = json.load(f)
+        self.check_boxes["c1"] = loadedDict["c1"]
+        self.check_boxes["c2"] = loadedDict["c2"]
+        self.check_boxes["c3"] = loadedDict["c3"]
+        self.check_boxes["c4"] = loadedDict["c4"]
+        self.check_boxes["c5"] = loadedDict["c5"]
+        self.check_boxes["c6"] = loadedDict["c6"]
+        self.check_boxes["c7"] = loadedDict["c7"]
+
+    def getCounterInfo(self):
+        info_dict = {
+            "user_id": self.user_id,
+            "c1": self.check_boxes["c1"],
+            "c2": self.check_boxes["c2"],
+            "c3": self.check_boxes["c3"],
+            "c4": self.check_boxes["c4"],
+            "c5": self.check_boxes["c5"],
+            "c6": self.check_boxes["c6"],
+            "c7": self.check_boxes["c7"],
+        }
+        return info_dict
+
+    def writeCounterIntoFile(self):
+        with open(self.getFileName(), "w") as f:
+            json.dump(self.getCounterInfo(), f)
+
+    def checkInfoPage(self):
+        self.check_boxes["c1"] = True
+        self.check_boxes["c2"] = True
+        self.check_boxes["c3"] = True
+
+    def checkGameDescription(self):
+        self.check_boxes["c4"] = True
+        self.check_boxes["c5"] = True
+        self.check_boxes["c6"] = True
+    
+    def checkDebriefsheet(self):
+        self.check_boxes["c7"] = True
+
 @my_app.route("/", methods=["GET", "POST"])
 def index():
     now = datetime.now()
     timestamp = int(datetime.timestamp(now))
     url = url_for("view_survey") + "?timestamp=" + str(timestamp)
     if request.method == "POST":
+        check_handler = CheckHandler(timestamp)
+        check_handler.checkInfoPage()
+        check_handler.writeCounterIntoFile()
         return redirect(url)
     return render_template("intro_form.html")
 
@@ -516,6 +578,9 @@ def view_textures():
 def view_game_description():
     if request.method == "POST":
         timestamp = request.form["timestamp"]
+        check_handler = CheckHandler(timestamp)
+        check_handler.checkGameDescription()
+        check_handler.writeCounterIntoFile()
         url = url_for("static", filename="game2501/index.html") + "?timestamp=" + timestamp
         return redirect(url)
         
@@ -568,6 +633,9 @@ def save():
 @my_app.route("/debriefsheet", methods=["GET", "POST"])
 def debriefsheet():
     if request.method == "POST":
+        check_handler = CheckHandler(request.args.get("timestamp"))
+        check_handler.checkDebriefsheet()
+        check_handler.writeCounterIntoFile()
         return redirect(url_for("thanks"))
     return render_template("debriefsheet.html")
 
