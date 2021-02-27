@@ -359,6 +359,40 @@ class LevelMainHandler:
     def addNewTime(self, time):
         self.levels.append(time)
 
+class CounterHandler:
+    # (int) user_id = 123
+    # (list) levels = [{level:1, main_start_time:v1}, {}]
+    def __init__(self, user_id):
+        self.user_id = int(user_id)
+        self.counter = []
+        if path.exists(self.getFileName()):
+            self.loadLevelMainHandlerFromFile()
+
+    def getFileName(self):
+        return "data/" + str(self.user_id) + "_counter.json"
+
+    def loadLevelMainHandlerFromFile(self):
+        with open(self.getFileName(), "r") as f:
+            loadedDict = json.load(f)
+        for count in loadedDict["counter"]:
+            self.counter.append(count)
+
+    def getCounterInfo(self):
+        info_dict = {
+            "user_id": self.user_id,
+            "counter": []
+        }
+        for count in self.counter:
+            info_dict["counter"].append(count)
+        return info_dict
+
+    def writeCounterIntoFile(self):
+        with open(self.getFileName(), "w") as f:
+            json.dump(self.getCounterInfo(), f)
+
+    def addNewCount(self, count):
+        self.counter.append(count)
+
 @my_app.route("/", methods=["GET", "POST"])
 def index():
     now = datetime.now()
@@ -649,6 +683,25 @@ def save_level_main_time():
     my_level_main.writeLevelMainTimeIntoFile()
 
     return jsonify(my_level_main.getLevelMainInfo()), 201
+
+@my_app.route("/api/counter", methods=["GET", "POST"])
+def save_counter():
+    incoming_data = {
+        "user_id": request.args.get("user_id"),
+        "level": request.args.get("level"),
+        "video_name": request.args.get("video_name"),
+        "counter": request.args.get("counter")
+    }
+    my_level_main = CounterHandler(incoming_data["user_id"])
+    my_level_main.addNewCount(
+        {
+            "level": incoming_data["level"],
+            "counter": incoming_data["counter"],
+        }
+    )
+    my_level_main.writeCounterIntoFile()
+
+    return jsonify(my_level_main.getCounterInfo()), 201
 
 if __name__ == "main":
     my_app.run()
