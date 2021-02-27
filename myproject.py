@@ -482,7 +482,7 @@ def view_video():
         }
         with open(f"data/{timestamp}_video.json", "w") as f:
             json.dump(survey_result, f)
-        url = url_for("view_textures") + "?timestamp=" + timestamp
+        url = url_for("view_game_description") + "?timestamp=" + timestamp
         return redirect(url)
         
     return render_template("video.html")
