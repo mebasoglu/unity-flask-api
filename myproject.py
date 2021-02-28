@@ -765,6 +765,7 @@ def save_counter():
         {
             "level": incoming_data["level"],
             "counter": incoming_data["counter"],
+            "video_name": incoming_data["video_name"]
         }
     )
     my_level_main.writeCounterIntoFile()
